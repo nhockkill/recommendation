@@ -1,13 +1,23 @@
 import streamlit as st
 import pickle
 
+# import pandas as pd
+# import numpy as np
+# from sklearn.feature_extraction.text import CountVectorizer    
+# from sklearn.metrics.pairwise import cosine_similarity
+
+import data_processing
+from data_processing import clean_data
+
+
+#read data
 movies = pickle.load(open("movies_list.pkl", 'rb'))
-# print(movies)
+# print(movies)ruu
 similarity = pickle.load(open("similarity.pkl", 'rb'))
 # print(similarity)
 movies_list = movies['Title'].values
 
-
+ 
 st.header("Movie Recommendation System")
 selectvalue = st.selectbox("Select movie from dropdown", movies_list)
 
@@ -19,17 +29,6 @@ def recommend(movie):
         recommend_movie.append(movies.iloc[i[0]].Title)
     return recommend_movie
 
-# def recommend(movie):
-#     index=movies[movies['Title']==movie].index[0]
-#     distance = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda vector:vector[1])
-#     recommend_movie=[]
-#     recommend_poster=[]
-#     for i in distance[1:6]:
-#         movies_id=movies.iloc[i[0]].id
-#         recommend_movie.append(movies.iloc[i[0]].Title)
-#         # recommend_poster.append(fetch_poster(movies_id))
-#     # return recommend_movie, recommend_poster
-#     return recommend_movie
 
 if st.button("Show Recommend"):
     movie_name = recommend(selectvalue)
@@ -44,3 +43,4 @@ if st.button("Show Recommend"):
         st.text(movie_name[3])
     with col5:    
         st.text(movie_name[4])
+ 
